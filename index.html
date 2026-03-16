@@ -63,17 +63,8 @@
           More Research
         </a>
         <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://hypernerf.github.io">
-            HyperNeRF
-          </a>
-          <a class="navbar-item" href="https://nerfies.github.io">
-            Nerfies
-          </a>
-          <a class="navbar-item" href="https://latentfusion.github.io">
-            LatentFusion
-          </a>
-          <a class="navbar-item" href="https://photoshape.github.io">
-            PhotoShape
+          <a class="navbar-item" href="https://emotag26.github.io">
+            EmoTaG
           </a>
         </div>
       </div>
@@ -106,12 +97,32 @@
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>Michigan State University, East Lansing, MI 48824</span>
-            <span class="author-block"><sup>2</sup>Qualcomm Technologies Inc., San Diego, CA 92121</span>
+            <span class="author-block"><sup>1</sup>Michigan State University</span>
+            <span class="author-block"><sup>2</sup>Qualcomm Technologies Inc.</span>
           </div>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">{xuhaola2, liuxm}@msu.edu</span>
-            <span class="author-block">{kelic, wlei, nbi}@qti.qualcomm.com</span>
+
+          <div class="is-size-5 publication-authors" style="margin-top: 20px; margin-bottom: 20px;">
+            <span class="author-block" style="margin-right: 30px;">
+              <img src="./static/images/msu.png" alt="Michigan State University" style="height: 60px;">
+            </span>
+            <span class="author-block">
+              <img src="./static/images/qualcomm.png" alt="Qualcomm" style="height: 60px;">
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors" style="margin-bottom: 20px;">
+            <span class="author-block">
+                <div class="columns is-centered">
+                  <div class="column is-8">
+                    <div class="content">
+                      <div class="box" style="display: flex; align-items: center; justify-content: center; padding: 10px; background-color: #f5f5f5; border-radius: 10px; box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1);">
+                        <img src="./static/images/cvpr.png" alt="CVPR 2026" style="height: 50px; margin-right: 15px;">
+                        <span style="font-weight: bold; font-size: 1.0em;">Accepted to The IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) 2026</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </span>
           </div>
 
           <div class="column has-text-centered">
@@ -176,15 +187,7 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4"
-                type="video/mp4">
-      </video>
-      <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
-        free-viewpoint
-        portraits.
-      </h2>
+      <img src="./static/images/teaser.png" class="interpolation-image" alt="Teaser Image."/>
     </div>
   </div>
 </section>
@@ -256,31 +259,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            We present the first method capable of photorealistically reconstructing a non-rigidly
-            deforming scene using photos/videos captured casually from mobile phones.
-          </p>
-          <p>
-            Our approach augments neural radiance fields
-            (NeRF) by optimizing an
-            additional continuous volumetric deformation field that warps each observed point into a
-            canonical 5D NeRF.
-            We observe that these NeRF-like deformation fields are prone to local minima, and
-            propose a coarse-to-fine optimization method for coordinate-based models that allows for
-            more robust optimization.
-            By adapting principles from geometry processing and physical simulation to NeRF-like
-            models, we propose an elastic regularization of the deformation field that further
-            improves robustness.
-          </p>
-          <p>
-            We show that <span class="dnerf">Nerfies</span> can turn casually captured selfie
-            photos/videos into deformable NeRF
-            models that allow for photorealistic renderings of the subject from arbitrary
-            viewpoints, which we dub <i>"nerfies"</i>. We evaluate our method by collecting data
-            using a
-            rig with two mobile phones that take time-synchronized photos, yielding train/validation
-            images of the same pose at different viewpoints. We show that our method faithfully
-            reconstructs non-rigidly deforming scenes and reproduces unseen views with high
-            fidelity.
+            Audio-driven 3D talking head synthesis has advanced rapidly with Neural Radiance Fields (NeRF) and 3D Gaussian Splatting (3DGS). Few-shot methods enable instant personalization by reconstructing high-fidelity avatars from only a few seconds of video. However, achieving natural talking-head generation further requires strong emotion-aware motion modeling, and existing few-shot approaches exhibit geometric instability and audio-emotion mismatch under expressive facial motion. In this work, we present EmoTaG, a few-shot emotion-aware 3D talking head synthesis framework built on the Pretrain-and-Adapt paradigm. Our key insight is to reformulate motion prediction in a structured FLAME parameter space rather than directly deforming 3D Gaussians, which introduces strong geometric priors for stable and interpretable motion. Building upon this, we propose a Gated Residual Motion Network (GRMN), which can capture emotional prosody from audio while supplementing head pose and upper-face cues absent in audio to enable expressive yet stable motion generation. Extensive experiments demonstrate that EmoTaG achieves state-of-the-art performance in emotional expressiveness, lip synchronization, visual realism, and motion stability.
           </p>
         </div>
       </div>
@@ -409,7 +388,7 @@
 
 
     <!-- Concurrent Work. -->
-    <div class="columns is-centered">
+    <!-- <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Related Links</h2>
 
@@ -432,7 +411,7 @@
           </p>
         </div>
       </div>
-    </div>
+    </div> -->
     <!--/ Concurrent Work. -->
 
   </div>
@@ -472,11 +451,9 @@
             Commons Attribution-ShareAlike 4.0 International License</a>.
           </p>
           <p>
-            This means you are free to borrow the <a
-              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
-            we just ask that you link back to this page in the footer.
-            Please remember to remove the analytics code included in the header of the website which
-            you do not want on your website.
+            Website source code based on the Nerfies project page. 
+            If you want to reuse their <a href="https://github.com/nerfies/nerfies.github.io">source code</a>, 
+            please credit them appropriately.
           </p>
         </div>
       </div>
