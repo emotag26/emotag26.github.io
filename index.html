@@ -342,38 +342,44 @@
         <!-- Neutral Results. -->
         <h3 class="title is-4">Neutral</h3>
         <div class="content has-text-justified">
-          <div class="columns is-mobile is-centered sync-row" id="neutral-row-1" style="margin-bottom: 20px;">
-            <div class="column is-2" style="padding: 0 5px;">
+          <div class="columns is-mobile is-centered is-vcentered sync-row" id="neutral-row-1" style="margin-bottom: 20px;">
+            <div class="column is-narrow" style="display: flex; justify-content: center; align-items: center;">
+              <button class="button is-dark sync-btn" style="flex-direction: column; height: auto; padding: 10px 15px;">
+                <span class="icon is-medium"><i class="fas fa-play fa-lg"></i></span>
+                <span class="btn-text" style="margin-top: 5px; font-size: 0.8em; font-weight: bold;">Play All</span>
+              </button>
+            </div>
+            <div class="column" style="padding: 0 5px;">
               <h4 class="has-text-centered is-size-6" style="margin-bottom: 5px;">Real3DPortrait</h4>
               <video controls muted playsinline width="100%" style="border-radius: 5px;">
                 <source src="./static/videos/neutral_may/r3d.mp4" type="video/mp4">
               </video>
             </div>
-            <div class="column is-2" style="padding: 0 5px;">
+            <div class="column" style="padding: 0 5px;">
               <h4 class="has-text-centered is-size-6" style="margin-bottom: 5px;">MimicTalk</h4>
               <video controls muted playsinline width="100%" style="border-radius: 5px;">
                 <source src="./static/videos/neutral_may/mimic.mp4" type="video/mp4">
               </video>
             </div>
-            <div class="column is-2" style="padding: 0 5px;">
+            <div class="column" style="padding: 0 5px;">
               <h4 class="has-text-centered is-size-6" style="margin-bottom: 5px;">TalkingGaussian</h4>
               <video controls muted playsinline width="100%" style="border-radius: 5px;">
                 <source src="./static/videos/neutral_may/tg.mp4" type="video/mp4">
               </video>
             </div>
-            <div class="column is-2" style="padding: 0 5px;">
+            <div class="column" style="padding: 0 5px;">
               <h4 class="has-text-centered is-size-6" style="margin-bottom: 5px;">InsTaG</h4>
               <video controls muted playsinline width="100%" style="border-radius: 5px;">
                 <source src="./static/videos/neutral_may/ins.mp4" type="video/mp4">
               </video>
             </div>
-            <div class="column is-2" style="padding: 0 5px;">
+            <div class="column" style="padding: 0 5px;">
               <h4 class="has-text-centered is-size-6" style="margin-bottom: 5px;">EmoTaG</h4>
               <video controls muted playsinline width="100%" style="border-radius: 5px;">
                 <source src="./static/videos/neutral_may/emo.mp4" type="video/mp4">
               </video>
             </div>
-            <div class="column is-2" style="padding: 0 5px;">
+            <div class="column" style="padding: 0 5px;">
               <h4 class="has-text-centered is-size-6" style="margin-bottom: 5px;">Reference</h4>
               <video controls playsinline width="100%" style="border-radius: 5px;">
                 <source src="./static/videos/neutral_may/gt.mp4" type="video/mp4">
@@ -531,30 +537,44 @@
     const rows = document.querySelectorAll('.sync-row');
     rows.forEach(row => {
       const videos = row.querySelectorAll('video');
-      videos.forEach(video => {
-        video.addEventListener('play', (e) => {
-          videos.forEach(v => {
-            if (v !== e.target) {
-              v.currentTime = e.target.currentTime;
+      const btn = row.querySelector('.sync-btn');
+      
+      if (btn) {
+        const btnText = btn.querySelector('.btn-text');
+        const btnIcon = btn.querySelector('i');
+        let isPlaying = false;
+
+        btn.addEventListener('click', () => {
+          if (!isPlaying) {
+            // Play all videos from the beginning
+            videos.forEach(v => {
+              v.currentTime = 0;
               v.play().catch(err => console.log("Play prevented by browser:", err));
-            }
-          });
+            });
+            isPlaying = true;
+            btnText.innerText = "Pause All";
+            btnIcon.classList.remove('fa-play');
+            btnIcon.classList.add('fa-pause');
+          } else {
+            // Pause all videos
+            videos.forEach(v => v.pause());
+            isPlaying = false;
+            btnText.innerText = "Play All";
+            btnIcon.classList.remove('fa-pause');
+            btnIcon.classList.add('fa-play');
+          }
         });
-        video.addEventListener('pause', (e) => {
-          videos.forEach(v => {
-            if (v !== e.target) {
-              v.pause();
-            }
+
+        // Reset button state when the reference video ends
+        if (videos.length > 0) {
+          videos[videos.length - 1].addEventListener('ended', () => {
+            isPlaying = false;
+            btnText.innerText = "Play All";
+            btnIcon.classList.remove('fa-pause');
+            btnIcon.classList.add('fa-play');
           });
-        });
-        video.addEventListener('seeking', (e) => {
-          videos.forEach(v => {
-            if (v !== e.target) {
-              v.currentTime = e.target.currentTime;
-            }
-          });
-        });
-      });
+        }
+      }
     });
   });
 </script>
