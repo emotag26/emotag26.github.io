@@ -187,8 +187,8 @@
           
           <div class="column has-text-centered">
             <img src="./static/images/teaser.png" class="interpolation-image" alt="Teaser Image."/>
-            <p style="font-size: 0.9em; color: #7a7a7a; margin-top: 15px; text-align: justify; line-height: 1.5;">
-              EmoTaG generates expressive and synchronized 3D talking heads from only 5-second new identity videos.
+            <p style="font-size: 0.9em; color: #7a7a7a; margin-top: 15px; text-align: center; line-height: 1.5;">
+              Figure 1. EmoTaG generates expressive and synchronized 3D talking heads from only 5-second new identity videos.
               Built upon a FLAME-Gaussian model and a Gated Residual Motion Network, our method achieves better emotional expressiveness, lip synchronization, visual realism, and motion stability compared to state-of-the-art approaches.
             </p>
           </div>
@@ -271,6 +271,17 @@
       </div>
     </div>
     <!--/ Abstract. -->
+
+    <!-- Pipeline Image. -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 20px;">
+      <div class="column is-four-fifths">
+        <img src="./static/images/pipeline.png" class="interpolation-image" alt="Pipeline Image."/>
+        <p style="font-size: 0.9em; color: #7a7a7a; margin-top: 15px; text-align: center; line-height: 1.5;">
+          Figure 2. For pretraining, our Gated Residual Motion Network learns a universal motion prior from a multi-identity corpus. This network comprises an Identity-Conditioned Encoder for integrating audio, expression, and identity through AdaIN-based modulation, followed by an Expert Motion Decoder that leverages emotion-distilled supervision to train three cooperative branches (Base, Residual, Gate). During adaptation, the Gated Residual Motion Network is efficiently adapted to a new identity from 5-second video via only tuning the AdaIN modulation parameters. At inference, the adapted model produces expressive, high-fidelity 3D facial animation driven by new audio with head pose and upper-face cues.
+        </p>
+      </div>
+    </div>
+    <!--/ Pipeline Image. -->
 
     <!-- Paper video. -->
     <!-- <div class="columns is-centered has-text-centered">
