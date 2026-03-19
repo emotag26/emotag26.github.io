@@ -196,7 +196,7 @@
 
           </div>
           
-          <div class="column has-text-centered">
+          <div class="column has-text-centered" style="margin-bottom: -2rem;">
             <img src="./static/images/teaser.png" class="interpolation-image" alt="Teaser Image."/>
             <p style="font-size: 0.9em; color: #7a7a7a; margin-top: 15px; text-align: center; line-height: 1.5; background-color: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 8px; padding: 15px;">
               <strong style="color: black;">Figure 1.</strong> EmoTaG generates expressive and synchronized 3D talking heads from only 5-second new identity videos.
@@ -268,7 +268,7 @@
 </section> -->
 
 
-<section class="section">
+<section class="section" style="padding-top: 2rem;">
   <div class="container is-max-desktop">
     <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
@@ -772,71 +772,90 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const rows = document.querySelectorAll('.sync-row');
+    
     rows.forEach(row => {
-      const videos = row.querySelectorAll('video');
+      const videos = Array.from(row.querySelectorAll('video'));
       const btn = row.querySelector('.sync-btn');
       
-      if (btn) {
+      if (btn && videos.length > 0) {
         const btnText = btn.querySelector('.btn-text');
         const btnIcon = btn.querySelector('i');
         let isPlaying = false;
 
-        // Find the reference video (the last one with audio)
-        const refVideo = videos[videos.length - 1];
-
-        // Sync other videos to the reference video
-        refVideo.addEventListener('play', () => {
-          videos.forEach(v => {
-            if (v !== refVideo) {
-              v.currentTime = refVideo.currentTime;
-              v.play().catch(err => console.log("Play prevented:", err));
-            }
-          });
-          isPlaying = true;
-          btnText.innerText = "Pause All";
-          btnIcon.classList.remove('fa-play');
-          btnIcon.classList.add('fa-pause');
+        // Preload videos to ensure they start together
+        videos.forEach(v => {
+          v.preload = "auto";
         });
 
-        refVideo.addEventListener('pause', () => {
-          videos.forEach(v => {
-            if (v !== refVideo) {
-              v.pause();
-            }
-          });
-          isPlaying = false;
-          btnText.innerText = "Play All";
-          btnIcon.classList.remove('fa-pause');
-          btnIcon.classList.add('fa-play');
-        });
-
-        refVideo.addEventListener('seeking', () => {
-          videos.forEach(v => {
-            if (v !== refVideo) {
-              v.currentTime = refVideo.currentTime;
-            }
-          });
-        });
-
-        refVideo.addEventListener('seeked', () => {
-          videos.forEach(v => {
-            if (v !== refVideo) {
-              v.currentTime = refVideo.currentTime;
-            }
-          });
-        });
-
-        // Handle button click
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
           if (!isPlaying) {
-            refVideo.currentTime = 0;
-            refVideo.play(); // This will trigger the 'play' event above and sync others
+            // 1. Reset all videos to start
+            videos.forEach(v => v.currentTime = 0);
+            
+            // 2. Create an array of play promises
+            const playPromises = videos.map(v => v.play());
+            
+            // 3. Execute all play commands simultaneously
+            try {
+              await Promise.all(playPromises);
+              isPlaying = true;
+              btnText.innerText = "Pause All";
+              btnIcon.classList.remove('fa-play');
+              btnIcon.classList.add('fa-pause');
+            } catch (err) {
+              console.log("Playback interrupted or prevented:", err);
+            }
           } else {
-            refVideo.pause(); // This will trigger the 'pause' event above and sync others
+            // Pause all simultaneously
+            videos.forEach(v => v.pause());
+            isPlaying = false;
+            btnText.innerText = "Play All";
+            btnIcon.classList.remove('fa-pause');
+            btnIcon.classList.add('fa-play');
           }
         });
 
-        // Reset button state when the reference video ends
+        // If any user manually clicks play/pause on a single video, sync the others
+        videos.forEach(video => {
+          video.addEventListener('play', (e) => {
+            if (!isPlaying) { // Only trigger if not already playing via the main button
+              videos.forEach(v => {
+                if (v !== e.target && v.paused) {
+                  v.currentTime = e.target.currentTime;
+                  v.play().catch(err => {});
+                }
+              });
+              isPlaying = true;
+              btnText.innerText = "Pause All";
+              btnIcon.classList.remove('fa-play');
+              btnIcon.classList.add('fa-pause');
+            }
+          });
+
+          video.addEventListener('pause', (e) => {
+            if (isPlaying) { // Only trigger if currently playing
+              // Check if it's not just ended
+              if (e.target.currentTime < e.target.duration) {
+                videos.forEach(v => {
+                  if (v !== e.target && !v.paused) v.pause();
+                });
+                isPlaying = false;
+                btnText.innerText = "Play All";
+                btnIcon.classList.remove('fa-pause');
+                btnIcon.classList.add('fa-play');
+              }
+            }
+          });
+
+          video.addEventListener('seeking', (e) => {
+            videos.forEach(v => {
+              if (v !== e.target) v.currentTime = e.target.currentTime;
+            });
+          });
+        });
+
+        // Reset button state when the longest video ends
+        const refVideo = videos[videos.length - 1]; // Assuming reference is the last one
         refVideo.addEventListener('ended', () => {
           isPlaying = false;
           btnText.innerText = "Play All";
