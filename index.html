@@ -818,74 +818,35 @@
           v.preload = "auto";
         });
 
-        btn.addEventListener('click', async () => {
+        // Use requestAnimationFrame for tighter sync
+        function syncPlay() {
+          videos.forEach(v => {
+            v.currentTime = 0;
+            v.play().catch(e => console.log("Play prevented:", e));
+          });
+        }
+
+        btn.addEventListener('click', () => {
           if (!isPlaying) {
-            // 1. Reset all videos to start
-            videos.forEach(v => v.currentTime = 0);
+            isPlaying = true;
+            btnText.innerText = "Pause All";
+            btnIcon.classList.remove('fa-play');
+            btnIcon.classList.add('fa-pause');
             
-            // 2. Create an array of play promises
-            const playPromises = videos.map(v => v.play());
-            
-            // 3. Execute all play commands simultaneously
-            try {
-              await Promise.all(playPromises);
-              isPlaying = true;
-              btnText.innerText = "Pause All";
-              btnIcon.classList.remove('fa-play');
-              btnIcon.classList.add('fa-pause');
-            } catch (err) {
-              console.log("Playback interrupted or prevented:", err);
-            }
+            // Execute play on next animation frame for better sync
+            requestAnimationFrame(syncPlay);
           } else {
-            // Pause all simultaneously
-            videos.forEach(v => v.pause());
             isPlaying = false;
             btnText.innerText = "Play All";
             btnIcon.classList.remove('fa-pause');
             btnIcon.classList.add('fa-play');
+            
+            videos.forEach(v => v.pause());
           }
         });
 
-        // If any user manually clicks play/pause on a single video, sync the others
-        videos.forEach(video => {
-          video.addEventListener('play', (e) => {
-            if (!isPlaying) { // Only trigger if not already playing via the main button
-              videos.forEach(v => {
-                if (v !== e.target && v.paused) {
-                  v.currentTime = e.target.currentTime;
-                  v.play().catch(err => {});
-                }
-              });
-              isPlaying = true;
-              btnText.innerText = "Pause All";
-              btnIcon.classList.remove('fa-play');
-              btnIcon.classList.add('fa-pause');
-            }
-          });
-
-          video.addEventListener('pause', (e) => {
-            if (isPlaying) { // Only trigger if currently playing
-              // Check if it's not just ended
-              if (e.target.currentTime < e.target.duration) {
-                videos.forEach(v => {
-                  if (v !== e.target && !v.paused) v.pause();
-                });
-                isPlaying = false;
-                btnText.innerText = "Play All";
-                btnIcon.classList.remove('fa-pause');
-                btnIcon.classList.add('fa-play');
-              }
-            }
-          });
-
-          video.addEventListener('seeking', (e) => {
-            videos.forEach(v => {
-              if (v !== e.target) v.currentTime = e.target.currentTime;
-            });
-          });
-        });
-
-        // Reset button state when the longest video ends
+        // Remove manual sync listeners as they often cause cascading delays and infinite loops
+        // Only keep the ended listener to reset the button
         const refVideo = videos[videos.length - 1]; // Assuming reference is the last one
         refVideo.addEventListener('ended', () => {
           isPlaying = false;
