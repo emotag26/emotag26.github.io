@@ -885,17 +885,28 @@
         const btnIcon = btn.querySelector('i');
         let isPlaying = false;
 
-        // Preload videos to ensure they start together
-        videos.forEach(v => {
-          v.preload = "auto";
-        });
+        videos.forEach(v => { v.preload = "auto"; });
 
-        // Use requestAnimationFrame for tighter sync
-        function syncPlay() {
-          videos.forEach(v => {
-            v.currentTime = 0;
-            v.play().catch(e => console.log("Play prevented:", e));
-          });
+        // Find the reference video (the one without muted attribute)
+        const refVideo = videos.find(v => !v.muted);
+        let separateAudio = null;
+
+        if (refVideo) {
+          const srcEl = refVideo.querySelector('source');
+          if (srcEl) {
+            separateAudio = new Audio(srcEl.getAttribute('src'));
+            separateAudio.preload = "auto";
+          }
+        }
+
+        function resetBtn() {
+          isPlaying = false;
+          btnText.innerText = "Play All";
+          btnIcon.classList.remove('fa-pause');
+          btnIcon.classList.add('fa-play');
+          // Restore reference video's audio for individual playback
+          if (refVideo) refVideo.muted = false;
+          if (separateAudio) { separateAudio.pause(); separateAudio.currentTime = 0; }
         }
 
         btn.addEventListener('click', () => {
@@ -904,28 +915,50 @@
             btnText.innerText = "Pause All";
             btnIcon.classList.remove('fa-play');
             btnIcon.classList.add('fa-pause');
-            
-            // Execute play on next animation frame for better sync
-            requestAnimationFrame(syncPlay);
+
+            // Temporarily mute reference video so all videos decode equally fast
+            if (refVideo) refVideo.muted = true;
+
+            // Reset all videos to start
+            videos.forEach(v => { v.pause(); v.currentTime = 0; });
+            if (separateAudio) { separateAudio.currentTime = 0; }
+
+            // Wait for all videos to be seeked to 0 and ready
+            let readyCount = 0;
+            function onReady() {
+              readyCount++;
+              if (readyCount >= videos.length) {
+                // All videos are at position 0 — play them all together
+                videos.forEach(v => v.play().catch(() => {}));
+                if (separateAudio) separateAudio.play().catch(() => {});
+              }
+            }
+
+            videos.forEach(v => {
+              if (v.readyState >= 3 && v.currentTime === 0) {
+                onReady();
+              } else {
+                v.addEventListener('seeked', function handler() {
+                  v.removeEventListener('seeked', handler);
+                  onReady();
+                });
+              }
+            });
+
           } else {
-            isPlaying = false;
-            btnText.innerText = "Play All";
-            btnIcon.classList.remove('fa-pause');
-            btnIcon.classList.add('fa-play');
-            
             videos.forEach(v => v.pause());
+            if (separateAudio) separateAudio.pause();
+            resetBtn();
           }
         });
 
-        // Remove manual sync listeners as they often cause cascading delays and infinite loops
-        // Only keep the ended listener to reset the button
-        const refVideo = videos[videos.length - 1]; // Assuming reference is the last one
-        refVideo.addEventListener('ended', () => {
-          isPlaying = false;
-          btnText.innerText = "Play All";
-          btnIcon.classList.remove('fa-pause');
-          btnIcon.classList.add('fa-play');
-        });
+        // When reference video ends, reset everything
+        if (refVideo) {
+          refVideo.addEventListener('ended', () => {
+            videos.forEach(v => v.pause());
+            resetBtn();
+          });
+        }
       }
     });
   });
