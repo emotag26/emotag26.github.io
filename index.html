@@ -342,7 +342,44 @@
         <!-- Neutral Results. -->
         <h3 class="title is-4">Neutral</h3>
         <div class="content has-text-justified">
-          <!-- Neutral videos will be added here -->
+          <div class="columns is-mobile is-centered sync-row" id="neutral-row-1" style="margin-bottom: 20px;">
+            <div class="column is-2" style="padding: 0 5px;">
+              <h4 class="has-text-centered is-size-6" style="margin-bottom: 5px;">Real3DPortrait</h4>
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/neutral_may/r3d.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column is-2" style="padding: 0 5px;">
+              <h4 class="has-text-centered is-size-6" style="margin-bottom: 5px;">MimicTalk</h4>
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/neutral_may/mimic.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column is-2" style="padding: 0 5px;">
+              <h4 class="has-text-centered is-size-6" style="margin-bottom: 5px;">TalkingGaussian</h4>
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/neutral_may/tg.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column is-2" style="padding: 0 5px;">
+              <h4 class="has-text-centered is-size-6" style="margin-bottom: 5px;">InsTaG</h4>
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/neutral_may/ins.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column is-2" style="padding: 0 5px;">
+              <h4 class="has-text-centered is-size-6" style="margin-bottom: 5px;">EmoTaG</h4>
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/neutral_may/emo.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column is-2" style="padding: 0 5px;">
+              <h4 class="has-text-centered is-size-6" style="margin-bottom: 5px;">Reference</h4>
+              <video controls playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/neutral_may/gt.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
         </div>
         <!--/ Neutral Results. -->
 
@@ -488,6 +525,39 @@
     </div>
   </div>
 </footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const rows = document.querySelectorAll('.sync-row');
+    rows.forEach(row => {
+      const videos = row.querySelectorAll('video');
+      videos.forEach(video => {
+        video.addEventListener('play', (e) => {
+          videos.forEach(v => {
+            if (v !== e.target) {
+              v.currentTime = e.target.currentTime;
+              v.play().catch(err => console.log("Play prevented by browser:", err));
+            }
+          });
+        });
+        video.addEventListener('pause', (e) => {
+          videos.forEach(v => {
+            if (v !== e.target) {
+              v.pause();
+            }
+          });
+        });
+        video.addEventListener('seeking', (e) => {
+          videos.forEach(v => {
+            if (v !== e.target) {
+              v.currentTime = e.target.currentTime;
+            }
+          });
+        });
+      });
+    });
+  });
+</script>
 
 </body>
 </html>
