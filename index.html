@@ -39,6 +39,17 @@
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+<style>
+  .sync-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15) !important;
+    background-color: #363636 !important;
+    color: white !important;
+  }
+  .sync-btn:active {
+    transform: scale(0.95);
+  }
+</style>
 </head>
 <body>
 
@@ -343,10 +354,10 @@
         <h3 class="title is-4">Neutral</h3>
         <div class="content has-text-justified">
           <div class="columns is-mobile is-centered is-vcentered sync-row" id="neutral-row-1" style="margin-bottom: 20px;">
-            <div class="column is-narrow" style="display: flex; justify-content: center; align-items: center;">
-              <button class="button is-dark sync-btn" style="flex-direction: column; height: auto; padding: 10px 15px;">
-                <span class="icon is-medium"><i class="fas fa-play fa-lg"></i></span>
-                <span class="btn-text" style="margin-top: 5px; font-size: 0.8em; font-weight: bold;">Play All</span>
+            <div class="column is-narrow" style="display: flex; justify-content: center; align-items: center; padding-right: 15px;">
+              <button class="button is-dark is-outlined sync-btn" style="flex-direction: column; height: 80px; width: 80px; border-radius: 50%; border-width: 2px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <span class="icon is-medium" style="margin: 0;"><i class="fas fa-play fa-lg"></i></span>
+                <span class="btn-text" style="margin-top: 5px; font-size: 0.75em; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Play All</span>
               </button>
             </div>
             <div class="column" style="padding: 0 5px;">
