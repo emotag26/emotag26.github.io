@@ -781,36 +781,68 @@
         const btnIcon = btn.querySelector('i');
         let isPlaying = false;
 
+        // Find the reference video (the last one with audio)
+        const refVideo = videos[videos.length - 1];
+
+        // Sync other videos to the reference video
+        refVideo.addEventListener('play', () => {
+          videos.forEach(v => {
+            if (v !== refVideo) {
+              v.currentTime = refVideo.currentTime;
+              v.play().catch(err => console.log("Play prevented:", err));
+            }
+          });
+          isPlaying = true;
+          btnText.innerText = "Pause All";
+          btnIcon.classList.remove('fa-play');
+          btnIcon.classList.add('fa-pause');
+        });
+
+        refVideo.addEventListener('pause', () => {
+          videos.forEach(v => {
+            if (v !== refVideo) {
+              v.pause();
+            }
+          });
+          isPlaying = false;
+          btnText.innerText = "Play All";
+          btnIcon.classList.remove('fa-pause');
+          btnIcon.classList.add('fa-play');
+        });
+
+        refVideo.addEventListener('seeking', () => {
+          videos.forEach(v => {
+            if (v !== refVideo) {
+              v.currentTime = refVideo.currentTime;
+            }
+          });
+        });
+
+        refVideo.addEventListener('seeked', () => {
+          videos.forEach(v => {
+            if (v !== refVideo) {
+              v.currentTime = refVideo.currentTime;
+            }
+          });
+        });
+
+        // Handle button click
         btn.addEventListener('click', () => {
           if (!isPlaying) {
-            // Play all videos from the beginning
-            videos.forEach(v => {
-              v.currentTime = 0;
-              v.play().catch(err => console.log("Play prevented by browser:", err));
-            });
-            isPlaying = true;
-            btnText.innerText = "Pause All";
-            btnIcon.classList.remove('fa-play');
-            btnIcon.classList.add('fa-pause');
+            refVideo.currentTime = 0;
+            refVideo.play(); // This will trigger the 'play' event above and sync others
           } else {
-            // Pause all videos
-            videos.forEach(v => v.pause());
-            isPlaying = false;
-            btnText.innerText = "Play All";
-            btnIcon.classList.remove('fa-pause');
-            btnIcon.classList.add('fa-play');
+            refVideo.pause(); // This will trigger the 'pause' event above and sync others
           }
         });
 
         // Reset button state when the reference video ends
-        if (videos.length > 0) {
-          videos[videos.length - 1].addEventListener('ended', () => {
-            isPlaying = false;
-            btnText.innerText = "Play All";
-            btnIcon.classList.remove('fa-pause');
-            btnIcon.classList.add('fa-play');
-          });
-        }
+        refVideo.addEventListener('ended', () => {
+          isPlaying = false;
+          btnText.innerText = "Play All";
+          btnIcon.classList.remove('fa-pause');
+          btnIcon.classList.add('fa-play');
+        });
       }
     });
   });
