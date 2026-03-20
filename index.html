@@ -90,7 +90,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">EmoTaG: Emotion-Aware Talking Head Synthesis on Gaussian Splatting with Few-Shot Personalization</h1>
+          <h1 class="title is-1 publication-title"><span style="background: linear-gradient(to right, #1b4332, #40916c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; font-weight: 800;">EmoTaG</span>: Emotion-Aware Talking Head Synthesis on Gaussian Splatting with Few-Shot Personalization</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://jamesdemon923.github.io/">Haolan Xu</a><sup>1</sup>,</span>
@@ -813,14 +813,19 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>
-      @article{xu2026emotag,
-        title={EmoTaG: Emotion-Aware Talking Head Synthesis on Gaussian Splatting with Few-Shot Personalization},
-        author={Xu, Haolan and Cheng, Keli and Wang, Lei and Bi, Ning and Liu, Xiaoming},
-        journal={xxx},
-        year={2026}
-      }
-    </code></pre>
+    <div style="position: relative;">
+      <button id="copy-btn" class="button is-small" style="position: absolute; top: 10px; right: 10px; z-index: 10; background-color: #f5f5f5; border: 1px solid #dbdbdb; border-radius: 4px; cursor: pointer;">
+        <span class="icon is-small"><i class="far fa-copy"></i></span>
+        <span>Copy</span>
+      </button>
+      <pre><code id="bibtex-content">@article{xu2026emotag,
+  title={EmoTaG: Emotion-Aware Talking Head Synthesis on Gaussian Splatting with Few-Shot Personalization},
+  author={Xu, Haolan and Cheng, Keli and Wang, Lei and Bi, Ning and Liu, Xiaoming},
+  journal={xxx},
+  year={2026}
+}</code></pre>
+    </div>
+    <p style="font-size: 1.1em; color: black; margin-top: 20px;">If you find this project useful for your research, please consider citing our paper. ✨</p>
   </div>
 </section>
 
@@ -961,6 +966,18 @@
           });
         }
       }
+    });
+  });
+
+  document.getElementById('copy-btn').addEventListener('click', function() {
+    const bibtexContent = document.getElementById('bibtex-content').innerText;
+    navigator.clipboard.writeText(bibtexContent).then(function() {
+      const btn = document.getElementById('copy-btn');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span class="icon is-small"><i class="fas fa-check"></i></span><span>Copied!</span>';
+      setTimeout(function() {
+        btn.innerHTML = originalText;
+      }, 2000);
     });
   });
 </script>
