@@ -177,6 +177,24 @@
       font-size: 0.85rem !important;
     }
   }
+
+  /* ===== Animated Gradient Text ===== */
+  .animated-gradient-text {
+    background: linear-gradient(270deg, #1b4332, #40916c, #1b4332);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    font-weight: 800;
+    animation: gradientAnimation 3s ease infinite;
+  }
+
+  @keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 </style>
 </head>
 <body>
@@ -218,7 +236,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title"><span style="background: linear-gradient(to right, #1b4332, #40916c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; font-weight: 800;">EmoTaG</span>: Emotion-Aware Talking Head Synthesis on Gaussian Splatting with Few-Shot Personalization</h1>
+          <h1 class="title is-1 publication-title"><span class="animated-gradient-text">EmoTaG</span>: Emotion-Aware Talking Head Synthesis on Gaussian Splatting with Few-Shot Personalization</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://haolanxu923.github.io/">Haolan Xu</a><sup>1</sup>,</span>
