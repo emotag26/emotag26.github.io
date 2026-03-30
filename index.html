@@ -61,10 +61,10 @@
     }
     .publication-authors img[alt="Michigan State University"],
     .publication-authors img[alt="University of North Carolina at Chapel Hill"] {
-      height: 40px !important;
+      height: 35px !important;
     }
     .publication-authors img[alt="Qualcomm"] {
-      height: 24px !important;
+      height: 21px !important;
     }
 
     /* ===== CVPR Acceptance Box ===== */
@@ -241,11 +241,11 @@
             <span class="author-block"><sup>3</sup>University of North Carolina at Chapel Hill</span>
           </div>
 
-          <div class="is-size-5 publication-authors" style="margin-top: 20px; margin-bottom: 20px; display: flex; justify-content: center; align-items: center;">
-            <span class="author-block" style="margin-right: 30px;">
+          <div class="is-size-5 publication-authors" style="margin-top: 20px; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px;">
+            <span class="author-block">
               <img src="./static/images/msu.png" alt="Michigan State University" style="height: 60px;">
             </span>
-            <span class="author-block" style="margin-right: 30px;">
+            <span class="author-block">
               <img src="./static/images/qualcomm.png" alt="Qualcomm" style="height: 36px;">
             </span>
             <span class="author-block">
@@ -577,6 +577,46 @@
               </video>
             </div>
           </div>
+
+          <!-- Third Row -->
+          <div class="columns is-mobile is-centered is-vcentered sync-row" id="neutral-row-3" style="margin-bottom: 20px;">
+            <div class="column is-narrow" style="display: flex; justify-content: center; align-items: center; padding-right: 15px;">
+              <button class="button is-dark is-outlined sync-btn" style="flex-direction: column; height: 80px; width: 80px; border-radius: 50%; border-width: 2px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <span class="icon is-medium" style="margin: 0;"><i class="fas fa-play fa-lg"></i></span>
+                <span class="btn-text" style="margin-top: 5px; font-size: 0.75em; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Play All</span>
+              </button>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/neutral_englishw/r3d.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/neutral_englishw/mimic.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/neutral_englishw/tg.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/neutral_englishw/ins.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/neutral_englishw/emo.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/neutral_englishw/gt.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
         </div>
         <!--/ Neutral Results. -->
 
@@ -585,7 +625,8 @@
         <div class="content has-text-justified">
           <!-- First Row (Angry) -->
           <div class="columns is-mobile is-centered is-vcentered sync-row" id="emotional-row-1" style="margin-bottom: 20px;">
-            <div class="column is-narrow" style="display: flex; justify-content: center; align-items: center; padding-right: 15px;">
+            <div class="column is-narrow" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding-right: 15px;">
+              <span style="font-weight: bold; margin-bottom: 10px; font-size: 1.1em; color: #363636;">Angry</span>
               <button class="button is-dark is-outlined sync-btn" style="flex-direction: column; height: 80px; width: 80px; border-radius: 50%; border-width: 2px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
                 <span class="icon is-medium" style="margin: 0;"><i class="fas fa-play fa-lg"></i></span>
                 <span class="btn-text" style="margin-top: 5px; font-size: 0.75em; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Play All</span>
@@ -630,7 +671,8 @@
           </div>
           <!-- Second Row (Happy) -->
           <div class="columns is-mobile is-centered is-vcentered sync-row" id="emotional-row-2" style="margin-bottom: 20px;">
-            <div class="column is-narrow" style="display: flex; justify-content: center; align-items: center; padding-right: 15px;">
+            <div class="column is-narrow" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding-right: 15px;">
+              <span style="font-weight: bold; margin-bottom: 10px; font-size: 1.1em; color: #363636;">Happy</span>
               <button class="button is-dark is-outlined sync-btn" style="flex-direction: column; height: 80px; width: 80px; border-radius: 50%; border-width: 2px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
                 <span class="icon is-medium" style="margin: 0;"><i class="fas fa-play fa-lg"></i></span>
                 <span class="btn-text" style="margin-top: 5px; font-size: 0.75em; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Play All</span>
@@ -664,6 +706,126 @@
             <div class="column" style="padding: 0 5px;">
               <video controls playsinline width="100%" style="border-radius: 5px;">
                 <source src="./static/videos/emotional_happy/gt.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          <!-- Third Row (Surprised) -->
+          <div class="columns is-mobile is-centered is-vcentered sync-row" id="emotional-row-3" style="margin-bottom: 20px;">
+            <div class="column is-narrow" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding-right: 15px;">
+              <span style="font-weight: bold; margin-bottom: 10px; font-size: 1.1em; color: #363636;">Surprised</span>
+              <button class="button is-dark is-outlined sync-btn" style="flex-direction: column; height: 80px; width: 80px; border-radius: 50%; border-width: 2px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <span class="icon is-medium" style="margin: 0;"><i class="fas fa-play fa-lg"></i></span>
+                <span class="btn-text" style="margin-top: 5px; font-size: 0.75em; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Play All</span>
+              </button>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/emotional_surprised/r3d.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/emotional_surprised/mimic.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/emotional_surprised/tg.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/emotional_surprised/ins.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/emotional_surprised/emo.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/emotional_surprised/gt.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          <!-- Fourth Row (Sad) -->
+          <div class="columns is-mobile is-centered is-vcentered sync-row" id="emotional-row-4" style="margin-bottom: 20px;">
+            <div class="column is-narrow" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding-right: 15px;">
+              <span style="font-weight: bold; margin-bottom: 10px; font-size: 1.1em; color: #363636;">Sad</span>
+              <button class="button is-dark is-outlined sync-btn" style="flex-direction: column; height: 80px; width: 80px; border-radius: 50%; border-width: 2px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <span class="icon is-medium" style="margin: 0;"><i class="fas fa-play fa-lg"></i></span>
+                <span class="btn-text" style="margin-top: 5px; font-size: 0.75em; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Play All</span>
+              </button>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/emotional_sad/r3d.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/emotional_sad/mimic.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/emotional_sad/tg.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/emotional_sad/ins.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/emotional_sad/emo.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/emotional_sad/gt.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          <!-- Fifth Row (Fear) -->
+          <div class="columns is-mobile is-centered is-vcentered sync-row" id="emotional-row-5" style="margin-bottom: 20px;">
+            <div class="column is-narrow" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding-right: 15px;">
+              <span style="font-weight: bold; margin-bottom: 10px; font-size: 1.1em; color: #363636;">Fear</span>
+              <button class="button is-dark is-outlined sync-btn" style="flex-direction: column; height: 80px; width: 80px; border-radius: 50%; border-width: 2px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <span class="icon is-medium" style="margin: 0;"><i class="fas fa-play fa-lg"></i></span>
+                <span class="btn-text" style="margin-top: 5px; font-size: 0.75em; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Play All</span>
+              </button>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/emotional_fear/r3d.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/emotional_fear/mimic.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/emotional_fear/tg.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/emotional_fear/ins.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls muted playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/emotional_fear/emo.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column" style="padding: 0 5px;">
+              <video controls playsinline width="100%" style="border-radius: 5px;">
+                <source src="./static/videos/emotional_fear/gt.mp4" type="video/mp4">
               </video>
             </div>
           </div>
