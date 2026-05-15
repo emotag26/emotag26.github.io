@@ -50,6 +50,21 @@
     transform: scale(0.95);
   }
 
+  /* Hero: YouTube + teaser — avoid nested Bulma .columns inside .column (mobile overflow / overlap). */
+  .hero-video-wrap {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto 1.25rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    box-sizing: border-box;
+  }
+  .hero-teaser {
+    position: relative;
+    z-index: 1;
+    margin-bottom: -2rem;
+  }
+
   @media screen and (max-width: 768px) {
     /* ===== Title & Authors ===== */
     h1.publication-title {
@@ -175,6 +190,16 @@
     /* ===== Footer ===== */
     .footer .content p {
       font-size: 0.85rem !important;
+    }
+
+    /* ===== Hero: video + Figure 1 teaser ===== */
+    .hero-video-wrap {
+      max-width: 100%;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+    .hero-teaser {
+      margin-bottom: 0.75rem !important;
     }
   }
 
@@ -347,22 +372,20 @@
 
           </div>
 
-          <div class="columns is-centered has-text-centered" style="margin-bottom: 1.25rem;">
-            <div class="column is-four-fifths">
-              <h2 class="title is-3">Video</h2>
-              <div class="publication-video">
-                <iframe src="https://www.youtube.com/embed/kEPHIu8I7HE?rel=0"
-                        title="EmoTaG supplementary video"
-                        loading="lazy"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                        allowfullscreen></iframe>
-              </div>
+          <div class="hero-video-wrap has-text-centered">
+            <h2 class="title is-3">Video</h2>
+            <div class="publication-video">
+              <iframe src="https://www.youtube.com/embed/kEPHIu8I7HE?rel=0"
+                      title="EmoTaG supplementary video"
+                      loading="lazy"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin"
+                      allowfullscreen></iframe>
             </div>
           </div>
-          
-          <div class="column has-text-centered" style="margin-bottom: -2rem;">
+
+          <div class="hero-teaser has-text-centered">
             <img src="./static/images/teaser.png" class="interpolation-image" alt="Teaser Image."/>
             <p style="font-size: 0.9em; color: #7a7a7a; margin-top: 15px; text-align: center; line-height: 1.5; background-color: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 8px; padding: 15px;">
               <strong style="color: black;">Figure 1.</strong> EmoTaG generates expressive and synchronized 3D talking heads from only 5-second new identity videos.
